@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use VerifyMyMU, please cite it using this metadata and the accompanying paper."
+type: software
+title: "VerifyMyMU: nine top-down measurement-uncertainty models for medical laboratories in one offline HTML file"
+version: "1.0.0"
+date-released: "2026-10-04"
+license: MIT
+repository-code: "https://github.com/mfkilinckaya-svg/VerifyMyMU"
+doi: "10.5281/zenodo.<RECORD>"
+authors:
+  - family-names: Kilinckaya
+    given-names: Muhammed Fevzi
+    orcid: "https://orcid.org/0000-0002-0815-5467"
+    affiliation: "Helse Møre og Romsdal, Norway"
+keywords:
+  - measurement uncertainty
+  - ISO/TS 20914
+  - Nordtest TR 537
+  - external quality assessment
+  - internal quality control
+  - analytical performance specification
+  - clinical chemistry
+abstract: >-
+  Single-file, offline application that computes the measurement uncertainty of a
+  clinical measurement procedure from internal quality control and external quality
+  assessment data under nine published top-down model formulations, exposes the four
+  conventions the guidance leaves open as separate settings, and classifies each model
+  as applicable, conditional or not applicable from the type of assigned value of the
+  laboratory's EQA scheme. Distributed with the verification scripts that reproduce the
+  worked examples of the source documents and an independent re-implementation.
