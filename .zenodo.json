@@ -1,0 +1,18 @@
+{
+  "title": "VerifyMyMU: nine top-down measurement-uncertainty models for medical laboratories in one offline HTML file",
+  "upload_type": "software",
+  "version": "1.0.0",
+  "license": "MIT",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Kilinckaya, Muhammed Fevzi",
+      "affiliation": "Helse Møre og Romsdal, Norway",
+      "orcid": "0000-0002-0815-5467"
+    }
+  ],
+  "description": "<p>Single-file, offline HTML application that computes the measurement uncertainty of a clinical measurement procedure from internal quality control and external quality assessment data under nine published top-down model formulations (ISO/TS 20914, ISO/TS 20914 with an added bias term, Nordtest TR 537 RMS and SEM forms, the mean-bias form, the EUROLAB TR 1/2007 reading, Cofrac SH GTA 14 and its range variant, ISO 21748). The four conventions the guidance leaves open &mdash; precision source, coverage rule, treatment of an uncorrected bias and source of u(Cref) &mdash; are separate settings, and an applicability screen classifies each model from the type of assigned value of the laboratory's EQA scheme by pre-specified criteria.</p><p>Distributed with the verification scripts that reproduce the worked examples of Nordtest TR 537 ed. 4 and ISO/TS 20914 Table A.3, an independent Python re-implementation of the nine models, Monte Carlo coverage checks and user-interface tests. Research software; not a medical device.</p><p>Accompanying paper: Kilinckaya MF, Nine top-down measurement uncertainty formulations on one clinical chemistry dataset, Scand J Clin Lab Invest (submitted).</p>",
+  "keywords": ["measurement uncertainty", "ISO/TS 20914", "Nordtest TR 537", "external quality assessment", "internal quality control", "analytical performance specification", "metrological traceability", "clinical chemistry", "laboratory medicine"],
+  "language": "eng",
+  "notes": "Version 1.0.0 is the version used for the analyses reported in the accompanying paper. The laboratory data files (data/) are not part of the record; see README."
+}
