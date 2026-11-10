@@ -17,7 +17,7 @@ from playwright.async_api import async_playwright
 
 import os
 TOOL = 'file://' + os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'VerifyMyMU.html'))
-IQC_CSV = os.path.join(os.path.dirname(__file__), '..', 'examples', 'example-IQC-albumin.csv')
+IQC_CSV = os.path.join(os.path.dirname(__file__), '..', 'examples', 'example-IQC-albumin-paper.csv')  # the data set built into the tool (loadExample)
 fails = []
 
 
@@ -36,14 +36,18 @@ def anova_from_csv(path, lot_level=None):
     raw rows are re-keyed with it. Comparing on the file's own labels would have compared nothing.
     """
     rows = []
-    for r in csv.DictReader(open(path)):
+    with open(path, encoding='utf-8-sig') as fh:
+        head = fh.readline(); fh.seek(0)
+        delim = ';' if head.count(';') > head.count(',') else ','
+        reader = list(csv.DictReader(fh, delimiter=delim))
+    for r in reader:
         try:
             v = float(r['Result'])
         except (ValueError, KeyError):
             continue
         dt = datetime.strptime(r['Date'].strip(), '%d/%m/%Y %H:%M:%S')
         lot = r['Control lot'].strip()
-        lv = (lot_level or {}).get(lot, r['Level'].strip())
+        lv = (lot_level or {}).get(lot, (r.get('Level') or r.get('Control') or '').strip())
         rows.append((lv, (lot, r['Instrument'].strip()),
                      (dt.year, dt.month, dt.day), v))
 

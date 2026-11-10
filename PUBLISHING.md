@@ -1,4 +1,4 @@
-# Publishing VerifyMyMU 1.0.0 on GitHub and Zenodo (one-time, ~20 minutes)
+# Publishing VerifyMyMU on GitHub and Zenodo (one-time, ~20 minutes)
 
 Two things have to be true before the paper is submitted: the file has a DOI, and the DOI points to exactly the version used for the paper. The GitHub → Zenodo integration gives both, and every later release gets its own DOI under one "concept DOI".
 

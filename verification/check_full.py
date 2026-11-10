@@ -12,7 +12,8 @@ from playwright.async_api import async_playwright
 
 import os
 TOOL = 'file://' + os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'VerifyMyMU.html'))
-FX = '/tmp/claude-0/-home-claude/15cc05a9-ab4f-5bff-a328-ab8b925f0ab6/scratchpad/fx'
+import tempfile
+FX = os.path.join(tempfile.gettempdir(), 'verifymymu-fixtures')   # synthetic input files are written here
 fails, warns = [], []
 
 
@@ -34,7 +35,42 @@ async def load_iqc(pg, path):
     await pg.wait_for_timeout(2500)
 
 
+def make_fixtures():
+    """Write the four synthetic input files the journey below loads. Deterministic (seeded)."""
+    import random
+    from datetime import date, timedelta
+    rnd = random.Random(20914)
+    os.makedirs(FX, exist_ok=True)
+    # 1 · a Turkish middleware export: semicolons, decimal commas, day-first dates, two analysers, two levels
+    rows = ['Test Adı;Cihaz Adı;Seviye;Lot;Kontrol Sonucu;Birim;Tarih;Hedef Değer']
+    d0 = date(2026, 1, 2)
+    for day in range(150):
+        d = d0 + timedelta(days=day)
+        for instr in ('Cihaz 1', 'Cihaz 2'):
+            for lv, mean, lot in (('Seviye 1', 31.8, '406861'), ('Seviye 2', 49.0, '405862')):
+                v = rnd.gauss(mean, mean * 0.027)
+                rows.append('Albumin;%s;%s;%s;%s;g/L;%s 07:%02d;%s' % (
+                    instr, lv, lot, ('%.2f' % v).replace('.', ','), d.strftime('%d.%m.%Y'), rnd.randint(10, 59),
+                    ('%.1f' % (31.5 if lv == 'Seviye 1' else 50.5)).replace('.', ',')))
+    open(os.path.join(FX, 'tr_two_instruments.csv'), 'w', encoding='utf-8').write('\n'.join(rows) + '\n')
+    # 2 · one level, three control lots in sequence
+    rows = ['Test,Instrument,Level,Lot,Result,Unit,Date,Target']
+    d = date(2026, 1, 2)
+    for lot, mean in (('A1001', 31.6), ('A1002', 31.9), ('A1003', 31.7)):
+        for _ in range(90):
+            rows.append('Albumin,Analyser 1,Level 1,%s,%.2f,g/L,%s 08:00,31.5' % (lot, rnd.gauss(mean, 0.85), d.strftime('%d/%m/%Y')))
+            d += timedelta(days=1)
+    open(os.path.join(FX, 'three_lots.csv'), 'w', encoding='utf-8').write('\n'.join(rows) + '\n')
+    # 3 · a summary export: no individual results, only N / mean / SD per level
+    open(os.path.join(FX, 'summary_mode.csv'), 'w', encoding='utf-8').write(
+        'Test,Level,Lot,N,Mean,SD,CV\nAlbumin,Level 1,406861,312,31.78,0.86,2.71\nAlbumin,Level 2,405862,309,49.12,1.29,2.63\n')
+    # 4 · nothing recognisable
+    open(os.path.join(FX, 'garbage.csv'), 'w', encoding='utf-8').write(
+        'lorem,ipsum,dolor\nsit,amet,consectetur\nadipiscing,elit,sed\n')
+
+
 async def main():
+    make_fixtures()
     async with async_playwright() as pw:
         b = await pw.chromium.launch()
         pg = await b.new_page()

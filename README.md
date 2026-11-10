@@ -6,7 +6,7 @@ VerifyMyMU computes the measurement uncertainty of a clinical measurement proced
 
 * ISO/TS 20914:2019 · ISO/TS 20914 with an added laboratory bias term · Nordtest TR 537 (RMS form) · Nordtest (SEM variant) · mean-bias form (SEM across rounds) · EUROLAB TR 1/2007 reading · Cofrac SH GTA 14 · Cofrac range variant (Martinello et al. 2020) · ISO 21748:2017
 * The four choices the guidance leaves open are separate settings: precision source (pooled / ANOVA), coverage rule (k = 2 / Welch–Satterthwaite / seeded Monte Carlo), treatment of an uncorrected bias (RSSu, RSSU, SUMU, SUMU_MAX, Synek Ue) and source of u(Cref).
-* An **applicability screen** classifies each model as applicable, conditional, sensitivity-only or not applicable from the type of assigned value of each EQA round (traceable vs participant consensus), by pre-specified criteria.
+* An **applicability screen** classifies each model as applicable, conditional, agreement-only or not applicable from the type of assigned value of each EQA round (traceable vs participant consensus), by pre-specified criteria.
 * Every printed figure comes with the arithmetic that produced it; the record is printable as a PDF.
 
 ## Running it

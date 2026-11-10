@@ -2,11 +2,11 @@ cff-version: 1.2.0
 message: "If you use VerifyMyMU, please cite it using this metadata and the accompanying paper."
 type: software
 title: "VerifyMyMU: nine top-down measurement-uncertainty models for medical laboratories in one offline HTML file"
-version: "1.0.0"
-date-released: "2026-10-04"
+version: "1.1.0"
+date-released: "2026-11-10"
 license: MIT
 repository-code: "https://github.com/mfkilinckaya-svg/VerifyMyMU"
-doi: "10.5281/zenodo.<RECORD>"
+doi: "10.5281/zenodo.23142868"
 authors:
   - family-names: Kilinckaya
     given-names: Muhammed Fevzi
